@@ -10,7 +10,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        A pointOfEntry = FillingArray.getFilling();
+        System.out.println(pointOfEntry);
+        System.out.println(pointOfEntry.getChildren()[0]);
     }
     
 }
