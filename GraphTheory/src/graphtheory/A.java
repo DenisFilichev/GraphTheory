@@ -12,7 +12,7 @@ import java.util.Random;
  * @author denis
  */
 public class A {
-    int serial;
+    private final int serial;
     private A[] parents = new A[1];
     private A[] children = new A[1];
     
@@ -24,29 +24,70 @@ public class A {
         return parents;
     }
 
-    protected void setDependencies(A child, A parent) {
-        if (parents[parents.length-1] != null) {
-            parents = resizeArray(parents);
+    protected static void setLink(A parent, A child) {
+        if(parent!=null && child!=null){
+            // Проверяем наличие свободных элементов в массивах parents и children
+            if (parent.getChildren()[parent.getChildren().length-1] != null) {
+                parent.setChildren(resizeArray(parent.getChildren()));
+            }
+            if (child.getParent()[child.getParent().length-1] != null) {
+                child.setChildren(resizeArray(child.getParent()));
+            }
+            /*
+            Делаем проверку наличия объекта в массиве 
+            и добавляем его только если его нет ни в одном элементе массива
+            */
+            A childTemp = child;
+            for (A a : parent.getChildren()){
+                if (a!=null && a.equals(childTemp)) childTemp=null;
+            }
+            
+            parent.getChildren()[parent.getChildren().length-1] = childTemp;
+            
+            for (A a : child.getParent()){
+                if (a!=null && a.equals(parent)) parent=null;
+            }
+            
+            child.getParent()[child.getParent().length-1] = parent;
         }
-        if (children[children.length-1] != null) {
-            children = resizeArray(children);
-        }
-        parents[parents.length-1] = parent;
-        children[children.length-1] = child;
     }
 
     public A[] getChildren() {
         return children;
     }
     
-    private A[] resizeArray (A[] array){
+    public int getSerial (){
+        return serial;
+    }
+
+    public void setParents(A[] parents) {
+        this.parents = parents;
+    }
+
+    public void setChildren(A[] children) {
+        this.children = children;
+    }
+    
+    
+    
+    private static A[] resizeArray (A[] array){
         A[]tempArray = new A[array.length+1];
         System.arraycopy(array, 0, tempArray, 0, array.length);
         return tempArray;
     }
+    
+    public static String print(A[] a){
+        String result = "";
+        for (int i=0 ; i<a.length ; i++){
+            // Не все элементы нашего массива могут инициализированы объектом А,
+            // по этому делаем соответствующую проверку.
+            if (a[i]!=null) result = result + " A" + a[i].getSerial();
+        }
+        return result;
+    }
 
     @Override
     public String toString() {
-        return "A" + serial + "{parent.length=" + parents.length + ", children.length=" + children.length + '}';
+        return "A" + serial + "{parent=" + A.print(parents) + ", children=" + A.print(children) + '}';
     }
 }

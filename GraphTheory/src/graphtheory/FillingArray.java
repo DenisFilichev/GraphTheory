@@ -14,33 +14,35 @@ public class FillingArray {
         //Основной объект
         A pointOfEntry = new A();
         
-        //Первый слой связей
+        //Первый слой объектов
+        A layer1number1 = new A();
+        A layer1number2 = new A();
+        A layer1number3 = new A();
+        // Создаем связи между основным объектом и объектами первого слоя 
+        A.setLink(pointOfEntry, layer1number1);
+        A.setLink(pointOfEntry, layer1number2);
+        A.setLink(pointOfEntry, layer1number3);
+        
+        //Второй слой объектов
         A layer2number1 = new A();
         A layer2number2 = new A();
         A layer2number3 = new A();
-        pointOfEntry.setDependencies(layer2number1, null);
-        pointOfEntry.setDependencies(layer2number2, null);
-        pointOfEntry.setDependencies(layer2number3, null);
-        
-        //Второй слой связей
-        A layer3number1 = new A();
-        A layer3number2 = new A();
-        A layer3number3 = new A();
-        A layer3number4 = new A();
-        A layer3number5 = new A();
-        A layer3number6 = new A();
-        A layer3number7 = new A();
-        A layer3number8 = new A();
-        A layer3number9 = new A();
-        layer2number1.setDependencies(layer3number1, layer2number1);
-        layer2number1.setDependencies(layer3number2, layer2number1);
-        layer2number1.setDependencies(layer3number3, layer2number1);
-        layer2number2.setDependencies(layer3number4, layer2number1);
-        layer2number2.setDependencies(layer3number5, layer2number1);
-        layer2number2.setDependencies(layer3number6, layer2number1);
-        layer2number3.setDependencies(layer3number7, layer2number1);
-        layer2number3.setDependencies(layer3number8, layer2number1);
-        layer2number3.setDependencies(layer3number9, layer2number1);
+        A layer2number4 = new A();
+        A layer2number5 = new A();
+        A layer2number6 = new A();
+        A layer2number7 = new A();
+        A layer2number8 = new A();
+        A layer2number9 = new A();
+        // Создаем связи между объектами первого и второго слоев 
+        A.setLink(layer1number1, layer2number1);
+        A.setLink(layer1number1, layer2number2);
+        A.setLink(layer1number1, layer2number3);
+        A.setLink(layer1number2, layer2number4);
+        A.setLink(layer1number2, layer2number5);
+        A.setLink(layer1number2, layer2number6);
+        A.setLink(layer1number3, layer2number7);
+        A.setLink(layer1number3, layer2number8);
+        A.setLink(layer1number3, layer2number9);
         
         return pointOfEntry; //Возвращает первый объект класса A, являющийся точкой входа
     }
